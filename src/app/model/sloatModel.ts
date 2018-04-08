@@ -4,7 +4,7 @@
 // import { sloatOperator } from '../../assets/javascripts/jquery.spritely.js';
 declare var $: any;
 
-export class Card {
+export class Sloat {
   private targetHtml: any;
   private maxSpeed: number;
   private increaseRate: number;
@@ -34,7 +34,22 @@ export class Card {
   }
 
   stopRoll() {
+    debugger;
     clearInterval(this.timer);
+        this.timer = setInterval(function() {
+            if(this.speed > 100) {
+                this.speed -= this.step;
+                $(this.targetHtml).spSpeed(this.speed);
+            }
+            if(this.speed <= 100) {
+                this.finalPos(this.el);
+                $(this.targetHtml).spSpeed(0);
+                $(this.targetHtml).spStop();
+                clearInterval(this.timer);
+                $(this.targetHtml).removeClass('motion');
+                this.speed = 0;
+            }
+        }, 500);
   }
 
 
